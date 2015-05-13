@@ -25,14 +25,12 @@ App.plateau = {
         var button=document.getElementById('go');
         button.onclick=App.rover.init;
     }
-
 };
 
 App.rover = {
     bottom:"",
     left:"",
     deg:0,
-
     init:function(){
         var _this=App.rover;
         var input=document.getElementById('instruct').value;
@@ -103,7 +101,6 @@ App.rover = {
                 }
             }
             _this.show();
-
         }
     }
 }
