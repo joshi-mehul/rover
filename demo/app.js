@@ -32,18 +32,7 @@ App.rover = {
     bottom:"",
     left:"",
     deg:0,
-    show:function(){
-        var input=document.getElementById('rover');
-        input.style.bottom=this.bottom+'px';
-        input.style.left=this.left+'px';
-        console.log(this.deg);
-        input.style.transform="rotate("+this.deg+"deg)";
-        input.style.visibility="visible";
-        var label =document.getElementById('lblInstruct');
-        label.innerHTML='Rover deployed you can only move now';
-        var button=document.getElementById('go');
-        //button.onclick=App.rover.move();
-    },
+
     init:function(){
         var _this=App.rover;
         var input=document.getElementById('instruct').value;
@@ -67,8 +56,54 @@ App.rover = {
         }
         _this.show();
     },
+    show:function(){
+        var input=document.getElementById('rover');
+        input.style.bottom=this.bottom+'px';
+        input.style.left=this.left+'px';
+        console.log(this.deg);
+        input.style.transform="rotate("+this.deg+"deg)";
+        input.style.visibility="visible";
+        var label =document.getElementById('lblInstruct');
+        label.innerHTML='Rover deployed you can only move now';
+        var button=document.getElementById('go');
+        button.onclick=App.rover.move;
+    },
     move:function(){
+        var _this=App.rover;
+        var input=document.getElementById('instruct').value;
+        if(input!="") {
+            var splt = input.split("");
+            for(var i =0;i<splt.length;i++)
+            {
+                switch (splt[i]) {
+                    case 'L':
+                        if(_this.deg==270){_this.deg=0}
+                        else{_this.deg=_this.deg+90}
+                        break;
+                    case 'R':
+                        if(_this.deg==0){_this.deg=270}
+                        else{_this.deg=_this.deg-90}
+                        break;
+                    case 'M':
+                        switch (_this.deg){
+                            case 0:
+                                _this.left+=30;
+                                break;
+                            case 90:
+                                _this.bottom-=30;
+                                break;
+                            case 180:
+                                _this.left-=30;
+                                break;
+                            case 270:
+                                _this.bottom+=30;
+                                break
+                        }
+                        break;
+                }
+            }
+            _this.show();
 
+        }
     }
-
 }
